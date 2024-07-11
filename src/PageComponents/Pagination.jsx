@@ -11,6 +11,7 @@ const StyledNav = styled.nav`
     margin-top: 20px;
     margin-bottom:
 `
+
 const StyledUl = styled.ul`
     display: flex;
     list-style: none;
@@ -19,20 +20,22 @@ const StyledUl = styled.ul`
 
 const StyledLi = styled.li`
     min-width: 30px;
-    background: #fff;
+    background: ${props => props.active ? "dodgerblue" : "#fff"};
     border: 1px solid #ddd;
     margin: 0px 5px 0px;
     color: ${props => props.disabled ? 'gray' : 'inherit'};
     cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
     opacity: ${props => props.disabled ? 0.7 : 1};
     pointer-events: ${props => props.disabled ? 'none' : 'auto'};
+
 `
 
 const StyledButton = styled.button`
     width: 100%;
     cursor: pointer;
     padding: 10px;
-    background: #fff;
+    background: transparent;
+    color: ${props => props.active ? "#fff" : "inherit"};
     border: none;
 `
 
@@ -85,7 +88,9 @@ const Pagination = () => {
                         key={i}
                         active={currentPage === i}
                     >
-                        <StyledButton onClick={() => handleClick(i)}>
+                        <StyledButton
+                            active={currentPage === i}
+                            onClick={() => handleClick(i)}>
                             {i}
                         </StyledButton>
                     </StyledLi>
