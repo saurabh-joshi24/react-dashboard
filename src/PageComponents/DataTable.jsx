@@ -3,27 +3,27 @@ import { Table, TableData, TableHeader } from "../components/table";
 
 
 const DataTable = () => {
-    const countries = useSelector((state) => state.countries.value)
+    const countries = useSelector((state) => state.countries.value);
+    const { indexOfFirstItem, indexOfLastItem } = useSelector((state) => state.pagination.value);
 
     return (
         <Table>
             <thead>
                 <tr>
-                    <TableHeader>S.No</TableHeader>
                     <TableHeader>Flag</TableHeader>
                     <TableHeader>Country Name</TableHeader>
                     <TableHeader>Capital</TableHeader>
                     <TableHeader>Population</TableHeader>
-                    <TableHeader>Area</TableHeader>
+                    <TableHeader>Area (in km square)</TableHeader>
                     <TableHeader>UN Member</TableHeader>
                     <TableHeader>Region</TableHeader>
+                    <TableHeader>Subregion</TableHeader>
                 </tr>
             </thead>
             <tbody>
                 {
-                    countries.map((data, index) =>
+                    countries.slice(indexOfFirstItem, indexOfLastItem).map((data, index) =>
                     (<tr key={data.name?.common}>
-                        <TableData>{index + 1}</TableData>
                         <TableData>{data.flag}</TableData>
                         <TableData>{data.name?.official}</TableData>
                         <TableData>{data.capital && data.capital.length ? data.capital[0] : ""}</TableData>
@@ -31,6 +31,7 @@ const DataTable = () => {
                         <TableData>{data.area}</TableData>
                         <TableData>{data.unMember ? "Yes" : "No"}</TableData>
                         <TableData>{data.region}</TableData>
+                        <TableData>{data.subregion}</TableData>
                     </tr>)
                     )
                 }
