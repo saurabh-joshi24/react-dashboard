@@ -5,6 +5,7 @@ const Table = styled.table`
   margin: 0 auto;
   border-collapse: collapse;
   margin-bottom: 20px;
+  border: 1px solid #ddd;
 `
 
 const TableHeader = styled.th`
@@ -14,7 +15,7 @@ const TableHeader = styled.th`
 
 const TableData = styled.td`
   border-bottom: 1px solid #ddd;
-  padding: 8px;
+  padding: 10px;
 `;
 
 
