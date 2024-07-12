@@ -2,27 +2,22 @@ import './App.css';
 import DataTable from './Pages/DataTable/DataTable';
 import { useState, useEffect } from 'react';
 import getCountries from "./api/getCountries";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCountries } from './redux/countries';
 import Pagination from './Pages/Pagination/Pagination';
 import DashboardCards from './Pages/DashboardCards/DashboardCards';
-
-const initialPaginationData = {
-  currentPage: 1, 
-  totalPages: 1, 
-  pageLimit: 5, 
-  itemsPerPage: 20, 
-  indexOfLastItem: 0,
-  indexOfFirstItem: 0
-}
+import { COUNTRY_COLUMNS } from './constants/countries';
+import { INITIAL_PAGINATION_DATA } from './constants/pagination';
 
 
 function App() {
   const dispatch = useDispatch();
 
-  const [paginationData, setPaginationData] = useState(initialPaginationData);
+  const countries = useSelector((state) => state.countries.value)
 
-  const { itemsPerPage, currentPage } = paginationData;
+  const [paginationData, setPaginationData] = useState(INITIAL_PAGINATION_DATA);
+
+  const { itemsPerPage, indexOfFirstItem, indexOfLastItem } = paginationData;
 
   const fetchData = async () => {
     const data = await getCountries();
@@ -48,7 +43,7 @@ function App() {
       </header>
       <main>
         <DashboardCards />
-        <DataTable currentPage={currentPage} itemsPerPage={itemsPerPage}/>
+        <DataTable datalist={countries.slice(indexOfFirstItem, indexOfLastItem)} columns={COUNTRY_COLUMNS} />
         <Pagination {...paginationData} onChange={onPaginationChange} />
       </main>
     </div>
