@@ -4,6 +4,8 @@ const StyledNav = styled.nav`
     display: flex;
     width: 90%;
     justify-content: center;
+    // max-height: 60px;
+    align-item: center;
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom:
@@ -13,6 +15,8 @@ const StyledUl = styled.ul`
     display: flex;
     list-style: none;
     justify-content: center;
+    padding-inline-start: 0px;
+    margin-left: 20px;
 `
 
 const StyledLi = styled.li`
@@ -36,4 +40,21 @@ const StyledButton = styled.button`
     border: none;
 `
 
-export { StyledNav, StyledUl, StyledLi, StyledButton}
+const StyledInput = styled.input `
+    width: 70px;
+    padding: 10px;
+`
+
+const StyledLabel = styled.label`
+    font-weight: 400;
+    margin-right: 5px;
+`
+
+const StyledDiv = styled.div `
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 1em 0 1em;
+`
+
+export { StyledNav, StyledUl, StyledLi, StyledButton, StyledInput, StyledLabel, StyledDiv}
