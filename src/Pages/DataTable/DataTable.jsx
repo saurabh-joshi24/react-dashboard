@@ -24,8 +24,8 @@ const DataTable = ({ datalist, columns }) => {
                     datalist.map((item, index) =>
                     (<tr key={index}>
                         {
-                            columns.map((column) => (
-                                <TableData key={column.accessor}>
+                            columns.map((column, index) => (
+                                <TableData key={index}>
                                     {column.cell ? column.cell(item) : getValue(item, column.accessor)}
                                 </TableData>
                             ))
