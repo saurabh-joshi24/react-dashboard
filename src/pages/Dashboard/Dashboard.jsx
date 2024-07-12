@@ -21,21 +21,28 @@ import { renderCardContent } from '../../utils/dashboardCard';
 function Dashboard() {
   const dispatch = useDispatch();
   const [paginationData, setPaginationData] = useState(INITIAL_PAGINATION_DATA);
+  const [loading, setLoading] = useState(true);
+
   const { itemsPerPage, indexOfFirstItem, indexOfLastItem } = paginationData;
 
   const countriesByPagination = selectCountriesByPagination(indexOfFirstItem, indexOfLastItem)
-  
+
   const paginatedCountries = useSelector(countriesByPagination);
   const topCountriesByPopulation = useSelector(selectTopCountriesByPopulation);
   const allCountries = useSelector(selectAllCountries);
 
   const fetchData = async () => {
     const data = await getCountries();
-
+    
+    if (!data.length) {
+      setLoading(false);
+    }
+    
     const totalPagesCount = Math.ceil(data.length / itemsPerPage);
 
     dispatch(setCountries(data));
     setPaginationData({ ...paginationData, totalPages: totalPagesCount });
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -53,12 +60,17 @@ function Dashboard() {
 
   return (
     <>
-      <Header title="React Dashboard"/>
-      <main>
-        <DashboardCards datalist={topCountriesByPopulation} renderCardContent={renderCardContent} />
-        <DataTable datalist={paginatedCountries} columns={COUNTRY_COLUMNS} />
-        <Pagination {...paginationData} onChange={onPaginationChange} />
-      </main>
+      <Header title="React Dashboard" />
+      {
+        loading ? <div>Loading...</div> :
+          !loading && allCountries.length < 1 ? <div>Unable to fetch data please try again !</div> :
+            <main>
+              <DashboardCards datalist={topCountriesByPopulation} renderCardContent={renderCardContent} />
+              <DataTable datalist={paginatedCountries} columns={COUNTRY_COLUMNS} />
+              <Pagination {...paginationData} onChange={onPaginationChange} />
+            </main>
+      }
+
     </>
   );
 }
