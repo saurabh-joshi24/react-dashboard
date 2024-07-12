@@ -1,4 +1,4 @@
-import { StyledLi, StyledButton } from "../Pages/Pagination/Paginations.styles";
+import { StyledLi, StyledButton } from "../components/Pagination/Paginations.styles";
 
 //  This generates page numbers array in pagination items
 const PageNumbers = ({ currentPage, totalPages, pageLimit, handleClick }) => {
