@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentPage, setLastIndex, setFirstIndex } from "../../redux/pagination";
 import { StyledNav, StyledLi, StyledUl, StyledButton } from "./Paginations.styles";
+import { PageNumbers } from "../../utils/pagination";
 
 const Pagination = () => {
     const dispatch = useDispatch();
     const { currentPage, totalPages, pageLimit, itemsPerPage } = useSelector((state) => state.pagination.value);
-
 
     useEffect(() => {
         const lastItemIndex = currentPage * itemsPerPage;
@@ -38,33 +38,6 @@ const Pagination = () => {
         }
     };
 
-    //  This generated page numbers array in pagination items
-    const renderPageNumbers = () => {
-        const pageNumbers = [];
-
-        let startPage = Math.max(1, currentPage - Math.floor(pageLimit / 2));
-        let endPage = Math.min(totalPages, startPage + pageLimit - 1);
-
-        if (totalPages > 1) {
-            for (let i = startPage; i <= endPage; i++) {
-                pageNumbers.push(
-                    <StyledLi
-                        key={i}
-                        active={currentPage === i}
-                    >
-                        <StyledButton
-                            active={currentPage === i}
-                            onClick={() => handleClick(i)}>
-                            {i}
-                        </StyledButton>
-                    </StyledLi>
-                );
-            }
-        }
-
-        return pageNumbers;
-    };
-
     return (
         <StyledNav>
             <StyledUl>
@@ -73,7 +46,7 @@ const Pagination = () => {
                         Previous
                     </StyledButton>
                 </StyledLi>
-                {renderPageNumbers()}
+                <PageNumbers currentPage={currentPage} totalPages={totalPages} handleClick={handleClick} pageLimit={pageLimit} />
                 <StyledLi disabled={currentPage === totalPages}>
                     <StyledButton onClick={handleNextPage}>
                         Next
