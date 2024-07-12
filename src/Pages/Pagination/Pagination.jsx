@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage, setLastIndex, setFirstIndex } from "../redux/pagination";
+import { setCurrentPage, setLastIndex, setFirstIndex } from "../../redux/pagination";
 import styled from "styled-components";
 
 const StyledNav = styled.nav`
