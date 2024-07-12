@@ -1,12 +1,12 @@
 import './App.css';
-import DataTable from './PageComponents/DataTable';
+import DataTable from './Pages/DataTable/DataTable';
 import { useEffect } from 'react';
 import getCountries from "./api/getCountries";
 import { useDispatch, useSelector } from 'react-redux';
 import { setCountries } from './redux/countries';
 import { setTotalPages } from './redux/pagination';
-import Pagination from './Pages/Pagination';
-import DashboardCards from './Pages/DashboardCards';
+import Pagination from './Pages/Pagination/Pagination';
+import DashboardCards from './Pages/DashboardCards/DashboardCards';
 
 function App() {
   const { itemsPerPage } = useSelector((state) => state.pagination.value)
