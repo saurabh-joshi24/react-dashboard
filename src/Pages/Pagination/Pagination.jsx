@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StyledNav, StyledLi, StyledUl, StyledButton } from "./Paginations.styles";
+import { StyledNav, StyledLi, StyledUl, StyledButton, StyledInput, StyledLabel, StyledDiv } from "./Paginations.styles";
 import { PageNumbers } from "../../utils/pagination";
 
 const Pagination = ({ onChange, ...paginationData }) => {
@@ -12,7 +12,7 @@ const Pagination = ({ onChange, ...paginationData }) => {
         onChange({
             ...paginationData,
             indexOfFirstItem: firstItemIndex,
-            indexOfLastItem: lastItemIndex
+            indexOfLastItem: lastItemIndex,
         })
 
     }, [currentPage, itemsPerPage])
@@ -47,8 +47,23 @@ const Pagination = ({ onChange, ...paginationData }) => {
         }
     };
 
+    const handleItemsPerPageChange = (e) => {
+        const newItemsPerPage = Number(e.target.value);
+        const totalItems = totalPages * itemsPerPage;
+        if (newItemsPerPage <= totalItems) {
+            onChange({
+                ...paginationData,
+                itemsPerPage: newItemsPerPage
+            })
+        }
+    }
+
     return (
         <StyledNav>
+            <StyledDiv>
+                <StyledLabel htmlFor="resultPer">Results Per Page: </StyledLabel>
+                <StyledInput type="number" step="5" id="resultPerPage" value={itemsPerPage} onKeyDown={(e) => e.preventDefault()} onChange={handleItemsPerPageChange} />
+            </StyledDiv>
             <StyledUl>
                 <StyledLi disabled={currentPage === 1}>
                     <StyledButton onClick={handlePrevPage}>
