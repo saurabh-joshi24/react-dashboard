@@ -1,5 +1,5 @@
 import { Card } from "../components/card";
-import styled from "styled-components";
+import { StyledDiv } from "./DashboardCards.styles";
 
 const SAMPLE_DATA = [
     {
@@ -20,15 +20,6 @@ const SAMPLE_DATA = [
         description: "lorem ipsum doler set"
     }
 ]
-
-const StyledDiv = styled.div`
-    display: flex;
-    width: 90%;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 auto;
-    margin-bottom: 20px;
-`
 
 
 const DashboardCards = () => {
