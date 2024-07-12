@@ -1,35 +1,18 @@
 import { Card } from "../../components/card";
 import { StyledDiv } from "./DashboardCards.styles";
 
-const SAMPLE_DATA = [
-    {
-        title: "Title 1",
-        description: "lorem ipsum doler set"
-    }
-    ,
-    {
-        title: "Title 2",
-        description: "lorem ipsum doler set"
-    },
-    {
-        title: "Title 3",
-        description: "lorem ipsum doler set"
-    },
-    {
-        title: "Title 4",
-        description: "lorem ipsum doler set"
-    }
-]
-
-
-const DashboardCards = () => {
+const DashboardCards = ({ datalist, renderCardContent }) => {
     return (
         <StyledDiv>
             {
-                SAMPLE_DATA.map((data) => (
-                    <Card key={data.title}>
-                        <h1>{data.title}</h1>
-                        <p>{data.description}</p>
+                datalist.map((data, index) => (
+                    <Card key={index}>
+                        {renderCardContent ? renderCardContent(data) : (
+                            <>
+                                <h1>{data.title}</h1>
+                                <p>{data.description}</p>
+                            </>
+                        )}
                     </Card>
                 ))
             }
