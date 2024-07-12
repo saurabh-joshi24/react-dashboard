@@ -1,32 +1,38 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage, setLastIndex, setFirstIndex } from "../../redux/pagination";
 import { StyledNav, StyledLi, StyledUl, StyledButton } from "./Paginations.styles";
 import { PageNumbers } from "../../utils/pagination";
 
-const Pagination = () => {
-    const dispatch = useDispatch();
-    const { currentPage, totalPages, pageLimit, itemsPerPage } = useSelector((state) => state.pagination.value);
+const Pagination = ({ onChange, ...paginationData }) => {
+    const { currentPage, totalPages, pageLimit, itemsPerPage } = paginationData;
 
     useEffect(() => {
         const lastItemIndex = currentPage * itemsPerPage;
         const firstItemIndex = lastItemIndex - itemsPerPage;
 
-        dispatch(setFirstIndex(firstItemIndex));
-        dispatch(setLastIndex(lastItemIndex));
+        onChange({
+            ...paginationData,
+            indexOfFirstItem: firstItemIndex,
+            indexOfLastItem: lastItemIndex
+        })
 
     }, [currentPage, itemsPerPage])
 
     // handles page change on page number click
     const handleClick = (page) => {
-        dispatch(setCurrentPage(page));
+        onChange({
+            ...paginationData,
+            currentPage: page
+        })
     };
 
     // handles next page
     const handleNextPage = () => {
         if (currentPage < totalPages) {
             const nextPage = currentPage + 1;
-            dispatch(setCurrentPage(nextPage));
+            onChange({
+                ...paginationData,
+                currentPage: nextPage
+            })
         }
     };
 
@@ -34,7 +40,10 @@ const Pagination = () => {
     const handlePrevPage = () => {
         if (currentPage > 1) {
             const prevPage = currentPage - 1;
-            dispatch(setCurrentPage(prevPage));
+            onChange({
+                ...paginationData,
+                currentPage: prevPage
+            })
         }
     };
 
