@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Table, TableData, TableHeader } from "../components/table";
+import { Table, TableData, TableHeader } from "../../components/table";
 
 
 const DataTable = () => {
