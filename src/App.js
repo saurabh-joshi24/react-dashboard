@@ -29,6 +29,11 @@ function App() {
   }
 
   useEffect(() => {
+    const totalPagesCount = Math.ceil(countries.length / itemsPerPage);
+    setPaginationData({ ...paginationData, totalPages: totalPagesCount });
+  }, [itemsPerPage])
+
+  useEffect(() => {
     fetchData();
   }, [])
 
