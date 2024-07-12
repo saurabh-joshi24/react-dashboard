@@ -5,8 +5,8 @@ import getCountries from "./api/getCountries";
 import { useDispatch, useSelector } from 'react-redux';
 import { setCountries } from './redux/countries';
 import { setTotalPages } from './redux/pagination';
-import Pagination from './PageComponents/Pagination';
-import DashboardCards from './PageComponents/DashboardCards';
+import Pagination from './Pages/Pagination';
+import DashboardCards from './Pages/DashboardCards';
 
 function App() {
   const { itemsPerPage } = useSelector((state) => state.pagination.value)
