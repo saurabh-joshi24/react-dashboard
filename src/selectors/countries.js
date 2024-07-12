@@ -6,4 +6,13 @@ const selectAllCountries = createSelector([selectCountries], (countries) => coun
 
 const selectCountriesByPagination = (firstItemIndex, lastItemIndex) => createSelector(selectAllCountries, (countries) => countries.slice(firstItemIndex, lastItemIndex))
 
-export { selectAllCountries, selectCountriesByPagination }
+const selectTopCountriesByPopulation = createSelector(
+    selectAllCountries,
+    (countries) => {
+        // sorting countries by population in descending order
+        const sortedCountries = countries.slice().sort((a, b) => b.population - a.population);
+        return sortedCountries.slice(0, 4);
+    }
+);
+
+export { selectAllCountries, selectCountriesByPagination, selectTopCountriesByPopulation }
