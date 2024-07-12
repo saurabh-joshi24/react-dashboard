@@ -1,4 +1,4 @@
-import { Card } from "../components/card";
+import { Card } from "../../components/card";
 import { StyledDiv } from "./DashboardCards.styles";
 
 const SAMPLE_DATA = [
