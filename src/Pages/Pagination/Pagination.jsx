@@ -47,13 +47,18 @@ const Pagination = ({ onChange, ...paginationData }) => {
         }
     };
 
+    // handles
     const handleItemsPerPageChange = (e) => {
         const newItemsPerPage = Number(e.target.value);
         const totalItems = totalPages * itemsPerPage;
+
         if (newItemsPerPage <= totalItems) {
             onChange({
                 ...paginationData,
-                itemsPerPage: newItemsPerPage
+                itemsPerPage: newItemsPerPage,
+                indexOfFirstItem: 0,
+                indexOfLastItem: newItemsPerPage,
+                currentPage: 1, // reset to first page
             })
         }
     }
