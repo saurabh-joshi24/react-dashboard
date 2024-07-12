@@ -1,37 +1,35 @@
-import { useSelector } from "react-redux";
 import { Table, TableData, TableHeader } from "../../components/table";
 
 
-const DataTable = () => {
-    const countries = useSelector((state) => state.countries.value);
-    const { indexOfFirstItem, indexOfLastItem } = useSelector((state) => state.pagination.value);
+const DataTable = ({ datalist, columns }) => {
+
+    // this function allows to access nested value inside object like (a.nestedKeyA)
+    const getValue = (item, accessor) => {
+        return accessor.split('.').reduce((obj, key) => (obj && obj[key] !== undefined) ? obj[key] : '', item);
+    };
 
     return (
         <Table>
             <thead>
                 <tr>
-                    <TableHeader>Flag</TableHeader>
-                    <TableHeader>Country Name</TableHeader>
-                    <TableHeader>Capital</TableHeader>
-                    <TableHeader>Population</TableHeader>
-                    <TableHeader>Area (in km square)</TableHeader>
-                    <TableHeader>UN Member</TableHeader>
-                    <TableHeader>Region</TableHeader>
-                    <TableHeader>Subregion</TableHeader>
+                    {
+                        columns.map((item, index) => (
+                            <TableHeader key={index}>{item.header}</TableHeader>
+                        ))
+                    }
                 </tr>
             </thead>
             <tbody>
                 {
-                    countries.slice(indexOfFirstItem, indexOfLastItem).map((data, index) =>
-                    (<tr key={data.name?.common}>
-                        <TableData>{data.flag}</TableData>
-                        <TableData>{data.name?.official}</TableData>
-                        <TableData>{data.capital && data.capital.length ? data.capital[0] : ""}</TableData>
-                        <TableData>{data.population}</TableData>
-                        <TableData>{data.area}</TableData>
-                        <TableData>{data.unMember ? "Yes" : "No"}</TableData>
-                        <TableData>{data.region}</TableData>
-                        <TableData>{data.subregion}</TableData>
+                    datalist.map((item, index) =>
+                    (<tr key={index}>
+                        {
+                            columns.map((column) => (
+                                <TableData key={column.accessor}>
+                                    {column.cell ? column.cell(item) : getValue(item, column.accessor)}
+                                </TableData>
+                            ))
+                        }
                     </tr>)
                     )
                 }
