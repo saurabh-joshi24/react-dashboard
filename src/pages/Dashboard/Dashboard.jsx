@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 import getCountries from "../../api/getCountries";
 
@@ -19,40 +20,36 @@ import { renderCardContent } from '../../utils/dashboardCard';
 
 
 function Dashboard() {
-  const dispatch = useDispatch();
-  const [paginationData, setPaginationData] = useState(INITIAL_PAGINATION_DATA);
-  const [loading, setLoading] = useState(true);
+  const { data, isError, isPending, isSuccess } = useQuery({ queryKey: ['countries'], queryFn: getCountries });
 
+  const dispatch = useDispatch();
+
+  const [paginationData, setPaginationData] = useState(INITIAL_PAGINATION_DATA);
   const { itemsPerPage, indexOfFirstItem, indexOfLastItem } = paginationData;
 
   const countriesByPagination = selectCountriesByPagination(indexOfFirstItem, indexOfLastItem)
-
   const paginatedCountries = useSelector(countriesByPagination);
   const topCountriesByPopulation = useSelector(selectTopCountriesByPopulation);
   const allCountries = useSelector(selectAllCountries);
 
-  const fetchData = async () => {
-    const data = await getCountries();
-    
-    if (!data.length) {
-      setLoading(false);
+  useEffect(() => {
+    // if api call is success then set countries and pagination data
+    if (isSuccess && data && data.length) {
+      const totalPagesCount = Math.ceil(data.length / INITIAL_PAGINATION_DATA.itemsPerPage);
+  
+      dispatch(setCountries(data));
+      setPaginationData({ ...paginationData, totalPages: totalPagesCount });
     }
-    
-    const totalPagesCount = Math.ceil(data.length / itemsPerPage);
 
-    dispatch(setCountries(data));
-    setPaginationData({ ...paginationData, totalPages: totalPagesCount });
-    setLoading(false);
-  }
+  }, [isSuccess, data])
+  
 
   useEffect(() => {
-    const totalPagesCount = Math.ceil(allCountries.length / itemsPerPage);
-    setPaginationData({ ...paginationData, totalPages: totalPagesCount });
+    if (allCountries && allCountries.length) {
+      const totalPagesCount = Math.ceil(allCountries.length / itemsPerPage);
+      setPaginationData({ ...paginationData, totalPages: totalPagesCount });
+     }
   }, [itemsPerPage, allCountries])
-
-  useEffect(() => {
-    fetchData();
-  }, [])
 
   const onPaginationChange = (pageData) => {
     setPaginationData(pageData);
@@ -62,8 +59,8 @@ function Dashboard() {
     <>
       <Header title="React Dashboard" />
       {
-        loading ? <div>Loading...</div> :
-          !loading && allCountries.length < 1 ? <div>Unable to fetch data please try again !</div> :
+        isPending ? <div>Loading...</div> :
+          isError || (data && data.length < 1) ? <div>Unable to fetch data please try again !</div> :
             <main>
               <DashboardCards datalist={topCountriesByPopulation} renderCardContent={renderCardContent} />
               <DataTable datalist={paginatedCountries} columns={COUNTRY_COLUMNS} />
