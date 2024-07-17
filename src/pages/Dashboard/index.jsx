@@ -16,7 +16,7 @@ import { INITIAL_PAGINATION_DATA } from '../../constants/pagination';
 
 import { selectAllCountries, selectCountriesByPagination, selectTopCountriesByPopulation } from '../../selectors/countries';
 
-import { renderCardContent } from '../../utils/dashboardCard';
+import { CardContent } from '../../components/DashboardCards/CardContent';
 
 
 function Dashboard() {
@@ -62,7 +62,7 @@ function Dashboard() {
         isPending ? <div>Loading...</div> :
           isError || (data && data.length < 1) ? <div>Unable to fetch data please try again !</div> :
             <main>
-              <DashboardCards datalist={topCountriesByPopulation} renderCardContent={renderCardContent} />
+              <DashboardCards datalist={topCountriesByPopulation} renderCardContent={(item) => <CardContent item={item}/>} />
               <DataTable datalist={paginatedCountries} columns={COUNTRY_COLUMNS} />
               <Pagination {...paginationData} onChange={onPaginationChange} />
             </main>
