@@ -1,4 +1,4 @@
-const renderCardContent = (item) => <>
+const CardContent = ({ item }) => <>
     <h1>
         <span>{item.name.common}</span>
         <span>{item.flag}</span>
@@ -7,4 +7,4 @@ const renderCardContent = (item) => <>
     <p>Population: {item.population}</p>
 </>
 
-export { renderCardContent }
+export { CardContent }
