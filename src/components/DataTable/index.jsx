@@ -1,4 +1,4 @@
-import { Table, TableData, TableHeader } from "../../components/table";
+import { Table, TableData, TableHeader } from "../table";
 
 
 const DataTable = ({ datalist, columns }) => {
