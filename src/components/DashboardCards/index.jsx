@@ -1,4 +1,4 @@
-import { Card } from "../../components/card";
+import { Card } from "../card";
 import { StyledDiv } from "./DashboardCards.styles";
 
 const DashboardCards = ({ datalist, renderCardContent }) => {
