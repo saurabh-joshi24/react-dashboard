@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { StyledNav, StyledLi, StyledUl, StyledButton, StyledInput, StyledLabel, StyledDiv } from "./Paginations.styles";
-import { PageNumbers } from "../../utils/pagination";
+import { PageNumbers } from "./PageNumbers";
 
 const Pagination = ({ onChange, ...paginationData }) => {
     const { currentPage, totalPages, pageLimit, itemsPerPage } = paginationData;
