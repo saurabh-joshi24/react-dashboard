@@ -6,10 +6,10 @@ import getCountries from "../../api/getCountries";
 import { useDispatch, useSelector } from 'react-redux';
 import { setCountries } from '../../redux/countries';
 
-import DataTable from '../../components/DataTable/DataTable';
-import Pagination from '../../components/Pagination/Pagination';
-import DashboardCards from '../../components/DashboardCards/DashboardCards';
-import Header from '../../components/Header/Header';
+import DataTable from '../../components/DataTable';
+import Pagination from '../../components/Pagination';
+import DashboardCards from '../../components/DashboardCards';
+import Header from '../../components/Header';
 
 import { COUNTRY_COLUMNS } from '../../constants/countries';
 import { INITIAL_PAGINATION_DATA } from '../../constants/pagination';
