@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-import getCountries from "../../api/getCountries";
+import getCountries from "@/api/getCountries";
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setCountries } from '../../redux/countries';
+import { setCountries } from '@/store/slices/countries';
 
-import DataTable from '../../components/DataTable';
-import Pagination from '../../components/Pagination';
-import DashboardCards from '../../components/DashboardCards';
-import Header from '../../components/Header';
+import DataTable from '@/components/DataTable';
+import Pagination from '@/components/Pagination';
+import DashboardCards from '@/components/DashboardCards';
+import Header from '@/components/Header';
 
-import { COUNTRY_COLUMNS } from '../../constants/countries';
-import { INITIAL_PAGINATION_DATA } from '../../constants/pagination';
+import { COUNTRY_COLUMNS } from '@/constants/countries';
+import { INITIAL_PAGINATION_DATA } from '@/constants/pagination';
 
-import { selectAllCountries, selectCountriesByPagination, selectTopCountriesByPopulation } from '../../selectors/countries';
+import { selectAllCountries, selectCountriesByPagination, selectTopCountriesByPopulation } from '@/store/selectors/countries';
 
-import { CardContent } from '../../components/DashboardCards/CardContent';
+import { CardContent } from '@/components/DashboardCards/CardContent';
 
 
 function Dashboard() {
